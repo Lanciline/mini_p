@@ -11,7 +11,9 @@ class PropertyController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Property::with('images');
+        $query = Property::with('images')->withAvg(['reviews' => function ($query) {
+            $query->where('approved', true);
+        }], 'rating');
 
         if ($request->filled('city')) {
             $query->where('city', $request->city);
@@ -32,7 +34,11 @@ class PropertyController extends Controller
 
     public function show(Property $property)
     {
-        $property->load(['images','reviews' => function($q){ $q->where('approved', true);}]);
+        $property->load(['images', 'reviews' => function ($q) {
+            $q->where('approved', true)->with('user');
+        }])->loadAvg(['reviews' => function ($q) {
+            $q->where('approved', true);
+        }], 'rating');
         return Inertia::render('Properties/Show', compact('property'));
     }
 

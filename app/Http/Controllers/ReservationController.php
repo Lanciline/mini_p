@@ -32,13 +32,13 @@ class ReservationController extends Controller
 
     public function index(Request $request)
     {
-        $reservations = $request->user()->reservations()->with('property')->latest()->get();
+        $reservations = $request->user()->reservations()->with('property.images')->latest()->get();
         return Inertia::render('Reservations/Index', compact('reservations'));
     }
 
     public function show($id)
     {
-        $reservation = auth()->user()->reservations()->with('property')->findOrFail($id);
+        $reservation = auth()->user()->reservations()->with('property.images')->findOrFail($id);
         return Inertia::render('Reservations/Show', compact('reservation'));
     }
 }
