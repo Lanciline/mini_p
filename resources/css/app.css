@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* shadcn-inspired CSS variables (minimal, HSL-based) */
+:root {
+	/* Background / foreground */
+	--background: 0 0% 100%; /* white */
+	--foreground: 222 47% 11%;
+
+	/* Primary (brand) */
+	--primary: 240 100% 50%;
+	--primary-foreground: 210 100% 98%;
+
+	/* Secondary / muted */
+	--muted: 210 16% 93%;
+	--muted-foreground: 215 16% 30%;
+
+	/* Border / ring / input */
+	--border: 216 14% 93%;
+	--input: 214 15% 96%;
+	--ring: 210 100% 50%;
+
+	/* Accent / destructive */
+	--destructive: 10 85% 55%;
+	--destructive-foreground: 0 0% 100%;
+
+	/* Radius */
+	--radius: 8px;
+}
+
+/* Dark mode variables */
+.dark {
+	--background: 220 13% 12%;
+	--foreground: 210 18% 96%;
+
+	--primary: 220 90% 60%;
+	--primary-foreground: 210 100% 98%;
+
+	--muted: 220 10% 18%;
+	--muted-foreground: 215 14% 70%;
+
+	--border: 220 12% 16%;
+	--input: 220 12% 14%;
+	--ring: 220 90% 60%;
+
+	--destructive: 10 85% 65%;
+	--destructive-foreground: 210 100% 98%;
+
+	--radius: 8px;
+}
+
+/* Utility helpers mapping common tokens to actual CSS values */
+.bg-app {
+	background-color: hsl(var(--background));
+}
+.text-app {
+	color: hsl(var(--foreground));
+}
+
+/* Ensure base uses variables */
+html, body {
+	height: 100%;
+	background-color: hsl(var(--background));
+	color: hsl(var(--foreground));
+}
+
+/* Example component variables (can be used in components) */
+.btn {
+	background-color: hsl(var(--primary));
+	color: hsl(var(--primary-foreground));
+	border-radius: var(--radius);
+}
+
