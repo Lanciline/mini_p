@@ -1,32 +1,32 @@
 <template>
-  <div class="p-4 border rounded bg-white">
-    <h2 class="font-semibold mb-2">Sélectionner une période</h2>
+    <div class="p-4 border rounded bg-white dark:bg-gray-700">
+        <h2 class="font-semibold mb-2 text-gray-800 dark:text-white">Sélectionner une période</h2>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-      <div>
-        <label class="block text-sm text-gray-600">Début</label>
-        <input type="date" v-model="start" :min="today" @change="validateRange" class="mt-1 p-2 border rounded w-full" />
-      </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+                <label class="block text-sm text-gray-600 dark:text-gray-400">Début</label>
+                <input type="date" v-model="start" :min="today" @change="validateRange" class="mt-1 p-2 border rounded w-full dark:bg-gray-600 dark:border-gray-500 dark:text-white" />
+            </div>
 
-      <div>
-        <label class="block text-sm text-gray-600">Fin</label>
-        <input type="date" v-model="end" :min="start || today" @change="validateRange" class="mt-1 p-2 border rounded w-full" />
-      </div>
+            <div>
+                <label class="block text-sm text-gray-600 dark:text-gray-400">Fin</label>
+                <input type="date" v-model="end" :min="start || today" @change="validateRange" class="mt-1 p-2 border rounded w-full dark:bg-gray-600 dark:border-gray-500 dark:text-white" />
+            </div>
+        </div>
+
+        <div class="mt-3 text-sm text-red-600 dark:text-red-400" v-if="error">{{ error }}</div>
+
+        <div class="mt-4">
+            <button class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700" @click="reserve" :disabled="!canReserve">Réserver</button>
+        </div>
+
+        <div class="mt-4 text-sm text-gray-600 dark:text-gray-400">
+            Dates bloquées:
+            <ul class="list-disc ml-5">
+                <li v-for="(r, i) in blocked" :key="i">{{ r.start }} → {{ r.end }}</li>
+            </ul>
+        </div>
     </div>
-
-    <div class="mt-3 text-sm text-red-600" v-if="error">{{ error }}</div>
-
-    <div class="mt-4">
-      <button class="px-4 py-2 bg-blue-600 text-white rounded" @click="reserve" :disabled="!canReserve">Réserver</button>
-    </div>
-
-    <div class="mt-4 text-sm text-gray-600">
-      Dates bloquées:
-      <ul class="list-disc ml-5">
-        <li v-for="(r, i) in blocked" :key="i">{{ r.start }} → {{ r.end }}</li>
-      </ul>
-    </div>
-  </div>
 </template>
 
 <script setup>
@@ -80,3 +80,4 @@ function reserve() {
   emit('reserved', { start_date: start.value, end_date: end.value })
 }
 </script>
+
